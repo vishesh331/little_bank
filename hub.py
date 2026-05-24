@@ -31,6 +31,7 @@ from bank import (
     InvalidAmountError,
 )
 from session import create_session, clear_session, get_current_session
+from announcements import get_latest_announcement
 
 # Try to use Supabase backend if configured
 try:
@@ -60,6 +61,16 @@ def _header(title: str) -> None:
 
 def _pause() -> None:
     input("\nPress Enter to continue...")
+
+
+def _show_announcements() -> None:
+    """Display latest casino win announcement if available."""
+    announcement = get_latest_announcement()
+    if announcement:
+        _separator("═", 60)
+        print(f"{Fore.GREEN}📢 {announcement}{Style.RESET_ALL}")
+        _separator("═", 60)
+        print()
 
 
 # ---------------------------------------------------------------------------
@@ -285,6 +296,9 @@ def screen_services_menu(info: dict) -> None:
 
 def main() -> None:
     """Main loop: login and access services."""
+    # Show announcements at startup
+    _show_announcements()
+    
     while True:
         info = screen_login()
         if info is None:

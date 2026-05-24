@@ -22,6 +22,7 @@ from bank import (
     InvalidAmountError,
 )
 from session import get_current_session
+from announcements import record_casino_win
 
 # Try to use Supabase backend if configured
 try:
@@ -42,6 +43,40 @@ DATA_FILE = Path("accounts.json")
 
 def _separator() -> None:
     print("─" * 70)
+
+
+def show_leaderboard() -> None:
+    """Display top 5 casino winners leaderboard."""
+    from announcements import get_leaderboard
+    
+    _separator()
+    print(f"🏆 {CASINO_NAME} - TOP WINNERS 🏆".center(70))
+    _separator()
+    
+    leaderboard = get_leaderboard(top_n=5)
+    
+    if not leaderboard:
+        print("  No winners yet. Be the first! 🎰")
+        _separator()
+        return
+    
+    for rank, winner in enumerate(leaderboard, 1):
+        username = winner.get("username", "Unknown")
+        total_won = winner.get("total_won", 0)
+        win_count = winner.get("win_count", 0)
+        
+        medal = {
+            1: "🥇",
+            2: "🥈", 
+            3: "🥉"
+        }.get(rank, f"#{rank}")
+        
+        print(f"  {medal} {rank}. {username}")
+        print(f"      Total Winnings: ${total_won:,.2f}")
+        print(f"      Wins: {win_count}")
+        print()
+    
+    _separator()
 
 
 # ----- Casino bootstrap -----
@@ -174,10 +209,11 @@ def number_guesser(bet_amount: float) -> None:
             print("Prize money is equal to", bet_amount *4)
             # Process payment to the user (casino pays the user)
             try:
+                winner_account = input("Enter your account number to receive the prize: ").strip()
                 receipt = bank.transfer(
                     from_account=CASINO_ACCOUNT,
                     password=CASINO_PASSWORD,
-                    to_account=input("Enter your account number to receive the prize: ").strip(),
+                    to_account=winner_account,
                     amount=bet_amount * 4,  # User wins 4x their bet
                 )
                 print("Transfering prize money to your account...")
@@ -185,11 +221,22 @@ def number_guesser(bet_amount: float) -> None:
                 print("\n  ✅ Prize transfer successful!")
                 print(f"     Transaction ID : {receipt['transaction_id']}")
                 print(f"     Amount won     : ${receipt['amount']:.2f}")
+                
+                # Record this win for announcements and leaderboard
+                try:
+                    winner_info = bank.get_account(winner_account)
+                    record_casino_win(
+                        username=winner_info.get("username", "Player"),
+                        account_number=winner_account,
+                        amount_won=bet_amount * 4
+                    )
+                except Exception:
+                    pass  # Silently fail if we can't record the win
 
             except Exception as exc:
                 print(f"\n  ❌ Prize transfer failed: {exc}")
                 print("Please take a screenshot and contact support to resolve this issue.")
-            break    
+            break
         elif attempt == max_attempts - 1:
             print(f"Game over! You've used all {max_attempts} attempts.")
             print(f"the correct number was {number_to_guess}. Better luck next time!")
@@ -211,6 +258,23 @@ def main() -> None:
     if session:
         print(f"✓ Logged in as: {session['username']}")
         print()
+
+    print("  1. Play Number Guesser Game")
+    print("  2. View Leaderboard (Top Winners)")
+    print("  0. Exit")
+    print()
+    
+    choice = input("  Select option: ").strip()
+    
+    if choice == "2":
+        show_leaderboard()
+        return
+    elif choice == "0":
+        print("Thank you for visiting! Goodbye!")
+        return
+    elif choice != "1":
+        print("Invalid option. Please try again.")
+        return
 
     try:
         bet_amount = float(input("Enter your bet amount: "))
