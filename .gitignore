@@ -1,5 +1,6 @@
-# Environment Variables (NEVER COMMIT!)
-.env
+# Environment Variables
+# .env is INCLUDED - this is a shared demo database
+# If you have private credentials, use .env.local instead
 .env.local
 .env.*.local
 
