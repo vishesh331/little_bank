@@ -11,6 +11,8 @@ Little Bank is a unified platform where users can:
 - **Buy movie tickets** - Purchase tickets using your bank balance
 - **Track everything** - Complete transaction history across all services
 - **Login once** - Access all services with a single session
+- **See live announcements** 📢 - Watch real-time casino wins from players worldwide
+- **Compete on leaderboard** 🏆 - Check top casino winners and their cumulative earnings
 
 All services share the same database and user accounts—win money in the casino, spend it on tickets, check your balance everywhere.
 
@@ -76,17 +78,38 @@ This means:
 - 📊 **You can see transactions from players across the world**
 - 🎮 **It's a global shared playground!**
 
+### 📢 Live Announcements & Leaderboard
+
+The shared database makes for exciting real-time experiences:
+
+**Announcements:**
+- When any player wins at the casino, their win is announced in **GREEN TEXT** at the top of the hub
+- See real-time: `"Alice just won $500 in the casino! 🎰"`
+- Only the latest big win is shown at a time
+- Creates a sense of community and competition
+
+**Casino Leaderboard:**
+- View the **top 5 casino winners** with cumulative earnings
+- See who has won the most money total across all games
+- Accessible from the casino menu (option 2)
+- Shows win count and total winnings for each player
+- Medals for top 3: 🥇 🥈 🥉
+
 ### Example Fun Scenario:
 1. Alice clones the project in London, creates an account, wins $500 at the casino
-2. Bob clones the project in Tokyo, sees Alice's account in the transaction history
-3. Bob creates an account, plays, and wins $300
-4. Alice sees Bob's transaction when she checks the transaction history
-5. They could even transfer money to each other if they share account numbers!
+   - 📢 Green announcement appears: "Alice just won $500 in the casino!"
+2. Bob in Tokyo sees the announcement when he starts the hub
+3. Bob gets inspired, plays, and wins $300
+   - 📢 New announcement: "Bob just won $300 in the casino!"
+   - Alice sees it and plays again
+4. They could even transfer money to each other!
+5. Both can check the leaderboard to see who's winning overall
 
 ### ⚠️ Important Notes:
 - Since the database is **shared with everyone**, any account you create is **visible to all users**
 - Don't use real passwords - this is a demo! 🎭
 - The balances and transactions are **real within this demo** - you're all playing in the same economy
+- Announcements and leaderboard are tracked in real-time
 - If someone resets the database, everyone's data resets (it's a demo after all!)
 
 ### Want Your Own Private Database?
@@ -105,7 +128,7 @@ If you'd like a private database just for yourself or your team:
 # 4. Now only YOU (and people with your credentials) can access it
 ```
 
-**The magic of this setup:** Clone anywhere, get instant access to a shared economy. Perfect for demos, learning, or just having fun! 🎉
+**The magic of this setup:** Clone anywhere, get instant access to a shared economy with live announcements and competition! 🎉
 
 ## 📁 Project Structure
 
@@ -309,11 +332,19 @@ else:
 
 ## 🎮 Gameplay Features
 
-### Casino (Number Guessing)
-- Guess a number between 1-100
-- Win money if you're within 10 of the correct number
-- Lose your bet if you're too far off
-- Try multiple times to increase winnings
+### Casino (Number Guesser)
+- Guess a number between 1-10
+- Win 4x your bet if correct
+- 3 attempts per game
+- **NEW:** Real-time announcements when you win
+- **NEW:** Compete on leaderboard with cumulative winnings
+- View top 5 casino winners with medal rankings
+
+**How it works:**
+1. Enter your bet amount
+2. Play the guessing game (3 attempts)
+3. If you win, announcement goes to all players 📢
+4. Check leaderboard to see your rank 🏆
 
 ### Movie Tickets
 - Browse available movies
@@ -342,11 +373,13 @@ Possible additions with the current architecture:
 | `hub.py` | Main dashboard - login once, access everything |
 | `session.py` | Session management - keeps you logged in |
 | `cli.py` | Command-line banking interface |
-| `numberguesser.py` | Casino game (number guessing) |
+| `numberguesser.py` | Casino game with leaderboard (number guessing) |
 | `movie_tickets.py` | Movie ticket purchasing system |
+| `announcements.py` | Real-time announcements and leaderboard tracking |
 | `supabase_backend.py` | Cloud database adapter (optional) |
 | `migrate_to_supabase.py` | Tool to move data to cloud |
 | `accounts.json` | Local database (JSON file) |
+| `announcements.json` | Announcements and casino leaderboard stats |
 | `SUPABASE_SCHEMA.sql` | SQL schema for cloud database |
 | `smoke_test.py` | Automated test suite |
 | `example_usage.py` | Code examples for developers |
