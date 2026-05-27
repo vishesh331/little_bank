@@ -65,8 +65,9 @@ python app.py
 
 1. **Start the hub**: `python hub.py`
 2. **Create a new account** or use test account:
-   - Account: `1340987248`
-   - Password: `12345678`
+   - Account: `1756652179`
+   - Password: `test123`
+   - Balance: `1000000$` yess 1 Million $ (the cheeky thing is that you can transfer money from test account to your account, have fun)
 3. **From the hub menu**, select:
    - 💳 Banking - deposit, withdraw, transfer money
    - 🎰 Casino - play the number guessing game
