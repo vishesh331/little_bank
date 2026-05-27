@@ -9,6 +9,7 @@ Little Bank is a unified platform where users can:
 - **Create & manage bank accounts** - Full banking features with secure authentication
 - **Play casino games** - Number guessing game to win/lose money
 - **Buy movie tickets** - Purchase tickets using your bank balance
+- **Stream movies** 🎬 - Browse and purchase movies with beautiful UI
 - **Track everything** - Complete transaction history across all services
 - **Login once** - Access all services with a single session
 - **See live announcements** 📢 - Watch real-time casino wins from players worldwide
@@ -53,6 +54,11 @@ python hub.py
 python cli.py              # Banking CLI
 python numberguesser.py    # Casino
 python movie_tickets.py    # Movie ticket store
+
+# Or start CinemaStream web app directly:
+cd movie_streaming
+python app.py
+# Then open: http://localhost:5000
 ```
 
 ### First Time Users
@@ -65,6 +71,7 @@ python movie_tickets.py    # Movie ticket store
    - 💳 Banking - deposit, withdraw, transfer money
    - 🎰 Casino - play the number guessing game
    - 🎬 Movie Tickets - buy tickets
+   - 🎥 CinemaStream - stream movies with Apple TV UI (NEW!)
    - 📊 Transactions - view transaction history
 
 ## 🌍 Shared Demo Database
@@ -143,7 +150,12 @@ little_bank/
 │   ├── hub.py                  # Central dashboard (start here!)
 │   ├── cli.py                  # Command-line banking interface
 │   ├── numberguesser.py        # Casino: number guessing game
-│   └── movie_tickets.py        # Movie ticket store
+│   ├── movie_tickets.py        # Movie ticket store
+│   └── movie_streaming/        # 🎬 NEW: Apple TV-like streaming app
+│       ├── app.py              # Flask web application
+│       ├── requirements.txt    # Python dependencies
+│       ├── templates/          # HTML templates
+│       └── static/             # CSS and JavaScript
 │
 ├── Cloud Integration (Optional)
 │   ├── supabase_backend.py     # Supabase PostgreSQL adapter
@@ -153,8 +165,13 @@ little_bank/
 │
 └── Testing & Documentation
     ├── smoke_test.py           # Automated tests
+    ├── setup_check.py          # Setup validation
     ├── example_usage.py        # Code examples
-    └── README.md               # This file
+    ├── README.md               # This file
+    ├── README_CINEMASTREAM.md  # CinemaStream overview
+    ├── QUICKSTART_MOVIESTREAMING.md # Quick start guide
+    ├── INTEGRATION_GUIDE.md    # Technical integration
+    └── README_CINEMASTREAM.md  # Comprehensive guide
 ```
 
 ## 💾 How Storage Works
@@ -351,6 +368,15 @@ else:
 - See prices and availability
 - Purchase tickets with your bank balance
 - Transaction recorded in your history
+
+### 🎬 CinemaStream (NEW!)
+- Beautiful Apple TV-inspired web interface
+- Browse 7 movies with search and filters
+- Real-time payment confirmation modal
+- Stream movies via embedded YouTube
+- Purchase history and transaction tracking
+- Fully responsive on all devices
+- Secure banking integration
 
 ## 🚧 Future Enhancements
 

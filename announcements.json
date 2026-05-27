@@ -1,0 +1,21 @@
+{
+  "latest_announcement": "Someone with a test account just won $200000.00 in the casino! \ud83c\udfb0",
+  "last_updated": "2026-05-24T12:26:28.456060",
+  "casino_stats": {
+    "1340987248": {
+      "username": "Vishesh Antal",
+      "total_won": 4000.0,
+      "win_count": 1
+    },
+    "8013330456": {
+      "username": "Jon Doe",
+      "total_won": 400.0,
+      "win_count": 1
+    },
+    "1756652179": {
+      "username": "Someone with a test account",
+      "total_won": 200000.0,
+      "win_count": 1
+    }
+  }
+}

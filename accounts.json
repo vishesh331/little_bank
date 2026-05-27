@@ -18,7 +18,7 @@
       "account_number": "1340987248",
       "username": "Vishesh Antal",
       "password_hash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
-      "balance": 0.0,
+      "balance": 100900.0,
       "created_at": "2026-05-18T18:06:33.699357Z"
     },
     "casino_account": {
@@ -32,7 +32,7 @@
       "account_number": "CASINO0001",
       "username": "Chance Casino",
       "password_hash": "5254e6fda71f6d3f8cefa712a02cd7d14e7c8e43087b5f197451bd4a5a0624ef",
-      "balance": 4600687.0,
+      "balance": 4599787.0,
       "created_at": "2024-01-01T00:00:00Z"
     },
     "1529675026": {
@@ -41,6 +41,20 @@
       "password_hash": "fd5509a679daac426203da6c435d1ca8beac3ef349130893792810130bd87090",
       "balance": 0.0,
       "created_at": "2026-05-23T06:52:09.397623Z"
+    },
+    "4110269789": {
+      "account_number": "4110269789",
+      "username": "Alice",
+      "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "balance": 900.0,
+      "created_at": "2026-05-27T05:34:50.495384Z"
+    },
+    "2476342111": {
+      "account_number": "2476342111",
+      "username": "Bob",
+      "password_hash": "fbb4a8a163ffa958b4f02bf9cabb30cfefb40de803f2c4c346a9d39b3be1b544",
+      "balance": 600.0,
+      "created_at": "2026-05-27T05:34:50.519701Z"
     }
   },
   "transactions": [
@@ -563,6 +577,62 @@
       "to_account": "CASINO0001",
       "amount": 999.0,
       "timestamp": "2026-05-23T07:00:00.472907Z"
+    },
+    {
+      "transaction_id": "239a74ae-5234-4e39-8313-1d4f8289ac6f",
+      "type": "deposit",
+      "from_account": null,
+      "to_account": "1340987248",
+      "amount": 100000.0,
+      "timestamp": "2026-05-24T06:35:45.076392Z"
+    },
+    {
+      "transaction_id": "597a2c64-77ef-4f76-950a-84893f004c43",
+      "type": "transfer",
+      "from_account": "1340987248",
+      "to_account": "CASINO0001",
+      "amount": 100.0,
+      "timestamp": "2026-05-24T06:36:07.982423Z"
+    },
+    {
+      "transaction_id": "4d044613-c82a-4e34-b46b-ee7f5987f633",
+      "type": "transfer",
+      "from_account": "1340987248",
+      "to_account": "CASINO0001",
+      "amount": 1000.0,
+      "timestamp": "2026-05-24T06:36:43.781036Z"
+    },
+    {
+      "transaction_id": "f3decebb-f410-441b-9592-c6c924c8a976",
+      "type": "transfer",
+      "from_account": "1340987248",
+      "to_account": "CASINO0001",
+      "amount": 1000.0,
+      "timestamp": "2026-05-24T06:37:24.804156Z"
+    },
+    {
+      "transaction_id": "1c458877-5b85-4d24-8b82-b6c6f97f84e6",
+      "type": "transfer",
+      "from_account": "1340987248",
+      "to_account": "CASINO0001",
+      "amount": 1000.0,
+      "timestamp": "2026-05-24T06:38:04.273771Z"
+    },
+    {
+      "transaction_id": "73103448-c4a6-49d5-b816-222029e4c211",
+      "type": "transfer",
+      "from_account": "CASINO0001",
+      "to_account": "1340987248",
+      "amount": 4000.0,
+      "timestamp": "2026-05-24T06:38:49.780889Z"
+    },
+    {
+      "transaction_id": "bc379701-7de7-4308-bdb4-9ddc0c594f8b",
+      "type": "transfer",
+      "from_account": "4110269789",
+      "to_account": "2476342111",
+      "amount": 100.0,
+      "timestamp": "2026-05-27T05:34:50.544481Z"
     }
   ]
 }

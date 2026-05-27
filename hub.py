@@ -82,8 +82,8 @@ def screen_login() -> dict | None:
     Authenticate user and return their account info.
     Returns None if authentication fails.
     """
-    _header("🏦  Welcome to the Integrated Platform")
-    print("  Login to access all services")
+    _header("🏦  Login")
+    print("  Enter your account credentials to continue.")
     print()
     
     account_number = input("  Account number: ").strip()
@@ -95,6 +95,50 @@ def screen_login() -> dict | None:
         create_session(info["account_number"], info["username"])
         return info
     except (AccountNotFoundError, AuthenticationError) as exc:
+        print(f"\n  ❌ {exc}")
+        _pause()
+        return None
+
+
+def screen_create_account() -> dict | None:
+    """
+    Guide a new user through account creation.
+    Returns the created account info, or None if creation was cancelled.
+    """
+    _header("🆕 Create New Account")
+    print("  Enter the details to create a new bank account.")
+    print()
+
+    username = input("  Username: ").strip()
+    if not username:
+        print("\n  ❌ Username must not be empty.")
+        _pause()
+        return None
+
+    password = getpass.getpass("  Password: ")
+    password_confirm = getpass.getpass("  Confirm password: ")
+    if password != password_confirm:
+        print("\n  ❌ Passwords do not match.")
+        _pause()
+        return None
+
+    initial_balance = 0.0
+    initial_balance_input = input("  Initial deposit amount (optional, default 0.00): $").strip()
+    if initial_balance_input:
+        try:
+            initial_balance = float(initial_balance_input)
+        except ValueError:
+            print("\n  ❌ Invalid deposit amount.")
+            _pause()
+            return None
+
+    try:
+        info = bank.create_account(username=username, password=password, initial_balance=initial_balance)
+        create_session(info["account_number"], info["username"])
+        print(f"\n  ✅ Account created successfully! Your account number is {info['account_number']}")
+        _pause()
+        return info
+    except ValueError as exc:
         print(f"\n  ❌ {exc}")
         _pause()
         return None
@@ -256,6 +300,43 @@ def launch_movie_tickets(info: dict) -> None:
     info["balance"] = bank.get_balance(info["account_number"])
 
 
+def launch_movie_streaming(info: dict) -> None:
+    """Launch the CinemaStream movie distribution service."""
+    import webbrowser
+    import time
+    import subprocess
+    
+    _header("🎥 Launching CinemaStream...")
+    print(f"  Logged in as: {info['username']}")
+    print(f"  Current balance: ${info['balance']:.2f}")
+    print("\n  🌐 Starting CinemaStream Web Service...")
+    print("     Flask server is starting at http://localhost:5000")
+    print("     Your browser will open automatically...")
+    print()
+    _separator()
+    
+    # Start Flask app
+    try:
+        # Change to movie_streaming directory and run the app
+        movie_streaming_path = Path(__file__).parent / "movie_streaming"
+        
+        # Open browser after a short delay
+        time.sleep(2)
+        webbrowser.open("http://localhost:5000")
+        
+        # Run the Flask app (this will block until the server is stopped)
+        os.chdir(movie_streaming_path)
+        exec(open("app.py").read())
+        
+    except Exception as e:
+        print(f"\n  ❌ Error launching CinemaStream: {e}")
+        print("     Make sure you have Flask installed: pip install -r movie_streaming/requirements.txt")
+        _pause()
+    finally:
+        # Refresh balance after streaming session
+        info["balance"] = bank.get_balance(info["account_number"])
+
+
 def screen_services_menu(info: dict) -> None:
     """Main menu for all available services."""
     while True:
@@ -265,8 +346,9 @@ def screen_services_menu(info: dict) -> None:
         print("  [1] 💰 Banking")
         print("  [2] 🎰 Casino - Number Guesser")
         print("  [3] 🎬 Movie Tickets")
-        print("  [4] 👤 Account Overview")
-        print("  [5] 📊 Transaction History")
+        print("  [4] 🎥 CinemaStream - Movie Distribution")
+        print("  [5] 👤 Account Overview")
+        print("  [6] 📊 Transaction History")
         print("  [0] 🚪 Logout")
         _separator()
 
@@ -279,8 +361,10 @@ def screen_services_menu(info: dict) -> None:
         elif choice == "3":
             launch_movie_tickets(info)
         elif choice == "4":
-            screen_account_overview(info)
+            launch_movie_streaming(info)
         elif choice == "5":
+            screen_account_overview(info)
+        elif choice == "6":
             screen_transaction_history(info)
         elif choice == "0":
             clear_session()  # Clear session on logout
@@ -295,29 +379,47 @@ def screen_services_menu(info: dict) -> None:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    """Main loop: login and access services."""
+    """Main loop: choose login/create account then access services."""
     # Show announcements at startup
     _show_announcements()
-    
+
     while True:
-        info = screen_login()
+        _header("🏦  Welcome to the Integrated Platform")
+        print("  Please choose an option:")
+        print("  [1] Login")
+        print("  [2] Create a new account")
+        print("  [0] Exit")
+        _separator()
+
+        choice = input("  Choice: ").strip()
+        if choice == "1":
+            info = screen_login()
+        elif choice == "2":
+            info = screen_create_account()
+        elif choice == "0":
+            print("Goodbye!")
+            clear_session()
+            sys.exit(0)
+        else:
+            print("  Invalid choice. Please try again.")
+            continue
+
         if info is None:
-            # Authentication failed, try again or exit
-            again = input("\nTry again? (y/n): ").strip().lower()
+            again = input("\nReturn to startup menu? (y/n): ").strip().lower()
             if again != "y":
                 print("Goodbye!")
-                clear_session()  # Clear session on exit
+                clear_session()
                 sys.exit(0)
             continue
-        
-        # Successfully logged in
+
+        # Successfully logged in or created account
         screen_services_menu(info)
-        
-        # After logout, prompt to login again or exit
+
+        # After logout, prompt to login/create again or exit
         again = input("\nLogin again? (y/n): ").strip().lower()
         if again != "y":
             print("Goodbye!")
-            clear_session()  # Clear session on exit
+            clear_session()
             sys.exit(0)
 
 

@@ -1,0 +1,44 @@
+{
+  "accounts": {
+    "8046604114": {
+      "account_number": "8046604114",
+      "username": "Alice",
+      "password_hash": "6eac1114aa783f6549327e7d01f63752995da7b31f1f37092b7dcb9f49cf5651",
+      "balance": 950,
+      "created_at": "2026-05-27T05:34:50.592650Z"
+    },
+    "4688933162": {
+      "account_number": "4688933162",
+      "username": "Bob",
+      "password_hash": "149d2937d1bce53fa683ae652291bd54cc8754444216a9e278b45776b76375af",
+      "balance": 600,
+      "created_at": "2026-05-27T05:34:50.610838Z"
+    }
+  },
+  "transactions": [
+    {
+      "transaction_id": "11491a6a-5b70-4ee2-86ea-8d4325143b13",
+      "type": "deposit",
+      "from_account": null,
+      "to_account": "8046604114",
+      "amount": 100,
+      "timestamp": "2026-05-27T05:34:50.634077Z"
+    },
+    {
+      "transaction_id": "ebc48340-8205-4eb0-91c4-61dcc2f2c70e",
+      "type": "withdrawal",
+      "from_account": "8046604114",
+      "to_account": null,
+      "amount": 50,
+      "timestamp": "2026-05-27T05:34:50.655246Z"
+    },
+    {
+      "transaction_id": "2eb4ecf6-b74c-4ca8-af84-8fc53bea2970",
+      "type": "transfer",
+      "from_account": "8046604114",
+      "to_account": "4688933162",
+      "amount": 100,
+      "timestamp": "2026-05-27T05:34:50.674500Z"
+    }
+  ]
+}
