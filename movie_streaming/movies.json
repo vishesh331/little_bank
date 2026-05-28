@@ -1,0 +1,81 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "title": "Big Buck Bunny",
+      "price": 500.0,
+      "description": "A large rabbit meets a squirrel and a flying Hardyeldrosse. The three rodents chase a helpless squirrel, only to get ambushed.",
+      "thumbnail": "https://peach.blender.org/wp-content/uploads/12.15.b9.00_01_19_14.Still001.jpg?x11217",
+      "video_url": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/BigBuckBunny.mp4",
+      "youtube_id": "YE7VzlLtp-4",
+      "rating": "4.5/5",
+      "genre": "Animation"
+    },
+    {
+      "id": 2,
+      "title": "Elephant Dream",
+      "price": 500.0,
+      "description": "A boy and his AI guide take a ride through a mysterious computer-like world to rescue the boy's friend.",
+      "thumbnail": "https://peach.blender.org/wp-content/uploads/ed_splash.png?x11217",
+      "video_url": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/ElephantsDream.mp4",
+      "youtube_id": "qKb4O_g_MQI",
+      "rating": "4.7/5",
+      "genre": "Adventure"
+    },
+    {
+      "id": 3,
+      "title": "For Bigger Blazes",
+      "price": 500.0,
+      "description": "A professional pyrotechnician places explosives and detonates them on behalf of a fireworks company.",
+      "thumbnail": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerBlazes.mp4",
+      "video_url": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerBlazes.mp4",
+      "youtube_id": "dQw4w9WgXcQ",
+      "rating": "4.3/5",
+      "genre": "Documentary"
+    },
+    {
+      "id": 4,
+      "title": "For Bigger Escape",
+      "price": 500.0,
+      "description": "A salesman uses a variety of metaphors to describe the value of 'ReB' to his customers.",
+      "thumbnail": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerEscape.mp4",
+      "video_url": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerEscape.mp4",
+      "youtube_id": "sj4dTogan3s",
+      "rating": "4.6/5",
+      "genre": "Comedy"
+    },
+    {
+      "id": 5,
+      "title": "For Bigger Fun",
+      "price": 500.0,
+      "description": "A story of a man who is trying to prove that a smaller company can beat a bigger one.",
+      "thumbnail": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerFun.mp4",
+      "video_url": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerFun.mp4",
+      "youtube_id": "jNQXAC9IVRw",
+      "rating": "4.8/5",
+      "genre": "Drama"
+    },
+    {
+      "id": 6,
+      "title": "Sintel",
+      "price": 500.0,
+      "description": "An early independent film created by a passionate animator who builds a world with creatures and monsters.",
+      "thumbnail": "https://peach.blender.org/wp-content/uploads/sintel_2.0.0_copy.jpg?x11217",
+      "video_url": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/Sintel.mp4",
+      "youtube_id": "9pfDyHwZX1w",
+      "rating": "4.4/5",
+      "genre": "Action"
+    },
+    {
+      "id": 7,
+      "title": "Tearsofsteel",
+      "price": 500.0,
+      "description": "A post-apocalyptic short film following a man and a robot as they wander through the devastated remains of civilization.",
+      "thumbnail": "https://peach.blender.org/wp-content/uploads/Tears_of_Steel_1024x576.jpg?x11217",
+      "video_url": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/TearsOfSteel.mp4",
+      "youtube_id": "CVDgXXXf_fw",
+      "rating": "4.9/5",
+      "genre": "Sci-Fi"
+    }
+  ]
+}

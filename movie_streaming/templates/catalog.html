@@ -340,6 +340,10 @@
             document.getElementById('confirmPaymentBtn').disabled = false;
 
             if (data.success) {
+                // Clear error message on success
+                document.getElementById('paymentError').style.display = 'none';
+                // Clear password field on success
+                document.getElementById('confirmPassword').value = '';
                 // Show success message
                 bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide();
                 
@@ -351,6 +355,7 @@
                     window.location.href = '/watch/' + currentMovieId;
                 }, 1000);
             } else {
+                // Show error message but DON'T clear password field on error
                 showPaymentError(data.error || 'Payment failed');
                 document.getElementById('confirmPaymentBtn').disabled = false;
             }

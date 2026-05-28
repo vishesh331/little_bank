@@ -55,6 +55,41 @@
       "password_hash": "fbb4a8a163ffa958b4f02bf9cabb30cfefb40de803f2c4c346a9d39b3be1b544",
       "balance": 600.0,
       "created_at": "2026-05-27T05:34:50.519701Z"
+    },
+    "2859807441": {
+      "account_number": "2859807441",
+      "username": "CinemaStream Distribution",
+      "password_hash": "47fd8e0c05cec9a34d1f3abf89a91f3c3e98755e019e0bfab3e6e7439351864d",
+      "balance": 1000.0,
+      "created_at": "2026-05-28T08:00:38.306608Z"
+    },
+    "1083224333": {
+      "account_number": "1083224333",
+      "username": "testuser",
+      "password_hash": "7e6e0c3079a08c5cc6036789b57e951f65f82383913ba1a49ae992544f1b4b6e",
+      "balance": 10000.0,
+      "created_at": "2026-05-28T08:01:23.586386Z"
+    },
+    "1399711351": {
+      "account_number": "1399711351",
+      "username": "testuser",
+      "password_hash": "7e6e0c3079a08c5cc6036789b57e951f65f82383913ba1a49ae992544f1b4b6e",
+      "balance": 9500.0,
+      "created_at": "2026-05-28T08:02:05.500356Z"
+    },
+    "2900128414": {
+      "account_number": "2900128414",
+      "username": "testuser",
+      "password_hash": "7e6e0c3079a08c5cc6036789b57e951f65f82383913ba1a49ae992544f1b4b6e",
+      "balance": 9500.0,
+      "created_at": "2026-05-28T08:02:45.358822Z"
+    },
+    "1971447596": {
+      "account_number": "1971447596",
+      "username": "beta",
+      "password_hash": "f44e64e75f3948e9f73f8dfa94721c4ce8cbb4f265c4790c702b2d41cfbf2753",
+      "balance": 5000.0,
+      "created_at": "2026-05-28T08:10:23.739846Z"
     }
   },
   "transactions": [
@@ -633,6 +668,22 @@
       "to_account": "2476342111",
       "amount": 100.0,
       "timestamp": "2026-05-27T05:34:50.544481Z"
+    },
+    {
+      "transaction_id": "742c51f1-807d-483e-b205-eb5d7609e30e",
+      "type": "transfer",
+      "from_account": "1399711351",
+      "to_account": "2859807441",
+      "amount": 500.0,
+      "timestamp": "2026-05-28T08:02:05.593127Z"
+    },
+    {
+      "transaction_id": "f820d638-0a59-4889-80e8-705a2b68af1c",
+      "type": "transfer",
+      "from_account": "2900128414",
+      "to_account": "2859807441",
+      "amount": 500.0,
+      "timestamp": "2026-05-28T08:02:45.425783Z"
     }
   ]
 }

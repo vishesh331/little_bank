@@ -37,7 +37,9 @@ try:
     from supabase_backend import create_supabase_backend_from_env
     backend = create_supabase_backend_from_env()
     bank = BankingSystem(backend=backend) if backend else BankingSystem()
-except ImportError:
+except (ImportError, Exception) as e:
+    print(f"Warning: Could not initialize Supabase backend: {e}")
+    print("Falling back to local JSON backend")
     bank = BankingSystem()
 
 # Initialize Flask app
@@ -45,99 +47,50 @@ app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'your-secret-key-change-this-in-production')
 
 # Movie streaming account (seller)
-MOVIE_SELLER_ACCOUNT = "MOVIE_STREAM_01"
 MOVIE_SELLER_NAME = "CinemaStream Distribution"
 MOVIE_SELLER_PASSWORD = "cinema_stream_secure"
+MOVIE_SELLER_ACCOUNT = None  # Will be set by _ensure_seller_account()
 
-# Sample movies with YouTube video IDs
-MOVIES = [
-    {
-        "id": 1,
-        "title": "Galactic Odyssey",
-        "price": 500.0,
-        "description": "An epic journey through the cosmos",
-        "thumbnail": "https://via.placeholder.com/300x450/1a1a2e/00d4ff?text=Galactic+Odyssey",
-        "youtube_id": "jNQXAC9IVRw",  # Sample YouTube video
-        "rating": "4.5/5",
-        "genre": "Sci-Fi"
-    },
-    {
-        "id": 2,
-        "title": "The Last Lighthouse",
-        "price": 500.0,
-        "description": "A mysterious tale at the edge of the world",
-        "thumbnail": "https://via.placeholder.com/300x450/2d1b4e/ff006e?text=Last+Lighthouse",
-        "youtube_id": "jNQXAC9IVRw",
-        "rating": "4.7/5",
-        "genre": "Mystery"
-    },
-    {
-        "id": 3,
-        "title": "Robots vs. Wizards",
-        "price": 500.0,
-        "description": "Technology meets magic in an unexpected clash",
-        "thumbnail": "https://via.placeholder.com/300x450/1a2a4e/00ff88?text=Robots+Wizards",
-        "youtube_id": "jNQXAC9IVRw",
-        "rating": "4.3/5",
-        "genre": "Action"
-    },
-    {
-        "id": 4,
-        "title": "Neon Dreams",
-        "price": 500.0,
-        "description": "A cyberpunk adventure in a digital paradise",
-        "thumbnail": "https://via.placeholder.com/300x450/2d0a4e/ff0080?text=Neon+Dreams",
-        "youtube_id": "jNQXAC9IVRw",
-        "rating": "4.6/5",
-        "genre": "Cyberpunk"
-    },
-    {
-        "id": 5,
-        "title": "Mountain Echoes",
-        "price": 500.0,
-        "description": "A profound story of nature and humanity",
-        "thumbnail": "https://via.placeholder.com/300x450/1a3a2e/00d4aa?text=Mountain+Echoes",
-        "youtube_id": "jNQXAC9IVRw",
-        "rating": "4.8/5",
-        "genre": "Drama"
-    },
-    {
-        "id": 6,
-        "title": "Quantum Heist",
-        "price": 500.0,
-        "description": "The greatest theft across dimensions",
-        "thumbnail": "https://via.placeholder.com/300x450/2a1a4e/ffaa00?text=Quantum+Heist",
-        "youtube_id": "jNQXAC9IVRw",
-        "rating": "4.4/5",
-        "genre": "Thriller"
-    },
-    {
-        "id": 7,
-        "title": "Eternal Sunset",
-        "price": 500.0,
-        "description": "A romantic journey across endless horizons",
-        "thumbnail": "https://via.placeholder.com/300x450/3a1a2e/ff6b6b?text=Eternal+Sunset",
-        "youtube_id": "jNQXAC9IVRw",
-        "rating": "4.9/5",
-        "genre": "Romance"
-    }
-]
+# Load movies from JSON file
+def _load_movies():
+    """Load movie catalog from movies.json file."""
+    try:
+        movies_file = Path(__file__).parent / 'movies.json'
+        with open(movies_file, 'r') as f:
+            data = json.load(f)
+            return data.get('movies', [])
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Warning: Could not load movies.json: {e}")
+        return []
+
+MOVIES = _load_movies()
 
 # Ensure movie seller account exists
 def _ensure_seller_account():
     """Create movie seller account if it doesn't exist."""
+    global MOVIE_SELLER_ACCOUNT
+    
+    # Try to find existing seller account by username
     try:
-        bank.get_account(MOVIE_SELLER_ACCOUNT)
-    except AccountNotFoundError:
-        try:
-            bank.create_account(
-                username=MOVIE_SELLER_NAME,
-                password=MOVIE_SELLER_PASSWORD,
-                initial_balance=0.0
-            )
-        except Exception:
-            # Account might already exist in Supabase
-            pass
+        data = bank._load()
+        for account_num, account_record in data.get("accounts", {}).items():
+            if account_record.get("username") == MOVIE_SELLER_NAME:
+                MOVIE_SELLER_ACCOUNT = account_num
+                return
+    except Exception:
+        pass
+    
+    # If not found, create new seller account
+    try:
+        account_info = bank.create_account(
+            username=MOVIE_SELLER_NAME,
+            password=MOVIE_SELLER_PASSWORD,
+            initial_balance=0.0
+        )
+        MOVIE_SELLER_ACCOUNT = account_info['account_number']
+    except Exception as e:
+        print(f"Warning: Could not create seller account: {e}")
+        raise
 
 # Authentication decorator
 def login_required(f):
@@ -288,14 +241,26 @@ def watch_movie(movie_id):
     if not movie:
         return redirect(url_for('catalog'))
 
-    return render_template('player.html', movie=movie)
+    balance = bank.get_balance(flask_session['user_account'])
+    return render_template(
+        'player.html', 
+        movie=movie,
+        balance=balance,
+        user_name=flask_session.get('user_name'),
+    )
 
 @app.route('/purchases')
 @login_required
 def purchases():
     """Show user's purchase history."""
     purchases_list = flask_session.get('purchases', [])
-    return render_template('purchases.html', purchases=purchases_list)
+    balance = bank.get_balance(flask_session['user_account'])
+    return render_template(
+        'purchases.html', 
+        purchases=purchases_list,
+        balance=balance,
+        user_name=flask_session.get('user_name'),
+    )
 
 @app.errorhandler(404)
 def not_found(error):

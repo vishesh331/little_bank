@@ -1,0 +1,57 @@
+{
+  "accounts": {
+    "1998454216": {
+      "account_number": "1998454216",
+      "username": "CinemaStream Distribution",
+      "password_hash": "47fd8e0c05cec9a34d1f3abf89a91f3c3e98755e019e0bfab3e6e7439351864d",
+      "balance": 1000.0,
+      "created_at": "2026-05-27T07:21:28.044333Z"
+    },
+    "1923704865": {
+      "account_number": "1923704865",
+      "username": "CinemaStream Distribution",
+      "password_hash": "47fd8e0c05cec9a34d1f3abf89a91f3c3e98755e019e0bfab3e6e7439351864d",
+      "balance": 0.0,
+      "created_at": "2026-05-27T07:21:29.693236Z"
+    },
+    "2221348119": {
+      "account_number": "2221348119",
+      "username": "CinemaStream Distribution",
+      "password_hash": "47fd8e0c05cec9a34d1f3abf89a91f3c3e98755e019e0bfab3e6e7439351864d",
+      "balance": 0.0,
+      "created_at": "2026-05-27T07:23:00.976543Z"
+    },
+    "3253791386": {
+      "account_number": "3253791386",
+      "username": "CinemaStream Distribution",
+      "password_hash": "47fd8e0c05cec9a34d1f3abf89a91f3c3e98755e019e0bfab3e6e7439351864d",
+      "balance": 0.0,
+      "created_at": "2026-05-27T07:23:02.256487Z"
+    },
+    "1340987248": {
+      "account_number": "1340987248",
+      "username": "Vishesh Antal",
+      "password_hash": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+      "balance": 99900.0,
+      "created_at": "2026-05-18T18:06:33.699357Z"
+    }
+  },
+  "transactions": [
+    {
+      "transaction_id": "a1a064a3-9e94-43f5-b978-e71c4dde1ecd",
+      "type": "transfer",
+      "from_account": "1340987248",
+      "to_account": "1998454216",
+      "amount": 500.0,
+      "timestamp": "2026-05-27T07:37:30.811899Z"
+    },
+    {
+      "transaction_id": "dbd8c62f-3917-4aba-af80-b597acb7b9b3",
+      "type": "transfer",
+      "from_account": "1340987248",
+      "to_account": "1998454216",
+      "amount": 500.0,
+      "timestamp": "2026-05-27T07:38:32.148534Z"
+    }
+  ]
+}
